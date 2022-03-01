@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Question from "./Question";
 import quiz from "../data/quiz";
 
@@ -6,7 +6,17 @@ function App() {
   const [questions, setQuestions] = useState(quiz);
   const [currentQuestionId, setCurrentQuestion] = useState(1);
   const [score, setScore] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(10);
   const currentQuestion = questions.find((q) => q.id === currentQuestionId);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeRemaining(timeRemaining-1);
+      console.log(timeRemaining-1);
+    }, 1000);
+
+    return clearInterval(timer);
+  })
 
   function handleQuestionAnswered(correct) {
     if (currentQuestionId < questions.length) {
